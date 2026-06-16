@@ -5,7 +5,6 @@ import sys
 from automation_server_client import (
     AutomationServer,
     Workqueue,
-    WorkItemError,
     Credential,
     WorkItemStatus,
 )
@@ -28,7 +27,10 @@ async def populate_queue(workqueue: Workqueue, boss: boss_client.BossClient):
 
 
 def process_workqueue(
-    workqueue: Workqueue, nfs: nfs_client.NFSClient, tracker: Tracker
+    workqueue: Workqueue,
+    boss: boss_client.BossClient,
+    nfs: nfs_client.NFSClient,
+    tracker: Tracker,
 ):
     logger = logging.getLogger(__name__)
 
@@ -38,6 +40,7 @@ def process_workqueue(
 
             try:
                 nfs.slet_bruger(data["email"])
+                boss.marker_bruger_som_slettet(data["id"])
                 tracker.track_task(proces_navn)
             except ValueError as e:
                 report(
@@ -45,6 +48,7 @@ def process_workqueue(
                     "Fejl",
                     {"Brugernavn": data["initials"], "Fejl": str(e)},
                 )
+                boss.marker_bruger_som_slettet(data["id"])
                 tracker.track_partial_task(proces_navn)
 
 
