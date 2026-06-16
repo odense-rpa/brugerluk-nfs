@@ -3,7 +3,11 @@ import logging
 import sys
 
 from automation_server_client import AutomationServer, Workqueue, WorkItemError, Credential, WorkItemStatus
+from odk_tools.tracking import Tracker
 
+tracker: Tracker
+
+proces_navn = "Brugerluk NFS"
 
 async def populate_queue(workqueue: Workqueue):
     logger = logging.getLogger(__name__)
@@ -34,6 +38,14 @@ if __name__ == "__main__":
     workqueue = ats.workqueue()
 
     # Initialize external systems for automation here..
+
+    tracking_credential = Credential.get_credential("Odense SQL Server")
+    robob = Credential.get_credential("RoboB")
+
+    tracker = Tracker(
+        username=tracking_credential.username, 
+        password=tracking_credential.password
+    )
 
     # Queue management
     if "--queue" in sys.argv:
