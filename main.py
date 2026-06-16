@@ -2,7 +2,13 @@ import asyncio
 import logging
 import sys
 
-from automation_server_client import AutomationServer, Workqueue, WorkItemError, Credential, WorkItemStatus
+from automation_server_client import (
+    AutomationServer,
+    Workqueue,
+    WorkItemError,
+    Credential,
+    WorkItemStatus,
+)
 from boss_client import client as boss_client
 from nfs_client import client as nfs_client
 from odk_tools.reporting import report
@@ -10,6 +16,7 @@ from odk_tools.tracking import Tracker
 
 
 proces_navn = "Brugerluk NFS"
+
 
 async def populate_queue(workqueue: Workqueue, boss: boss_client.BossClient):
     logger = logging.getLogger(__name__)
@@ -20,13 +27,15 @@ async def populate_queue(workqueue: Workqueue, boss: boss_client.BossClient):
         workqueue.add_item(item, item["initials"])
 
 
-def process_workqueue(workqueue: Workqueue, nfs: nfs_client.NFSClient, tracker: Tracker):
+def process_workqueue(
+    workqueue: Workqueue, nfs: nfs_client.NFSClient, tracker: Tracker
+):
     logger = logging.getLogger(__name__)
 
     for item in workqueue:
         with item:
             data = item.data  # Item data deserialized from json as dict
- 
+
             try:
                 nfs.slet_bruger(data["email"])
                 tracker.track_task(proces_navn)
@@ -54,18 +63,17 @@ if __name__ == "__main__":
         client_secret=boss_credential.password,
         api_url=boss_credential.data["api_url"],
         base_url=boss_credential.data["base_url"],
-        login_url=boss_credential.data["login_url"]
+        login_url=boss_credential.data["login_url"],
     )
 
     nfs = nfs_client.NFSClient(
         base_url=robob_credential.data["nfs_url"],
         username=robob_credential.username,
-        password=robob_credential.password
+        password=robob_credential.password,
     )
 
     tracker = Tracker(
-        username=tracking_credential.username, 
-        password=tracking_credential.password
+        username=tracking_credential.username, password=tracking_credential.password
     )
 
     # Queue management

@@ -425,6 +425,7 @@ dependencies = [
     { name = "boss-client" },
     { name = "nfs-client" },
     { name = "odk-tools" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
@@ -433,6 +434,7 @@ requires-dist = [
     { name = "boss-client", git = "https://github.com/odense-rpa/boss-client.git" },
     { name = "nfs-client", git = "https://github.com/odense-rpa/nfs-client.git" },
     { name = "odk-tools", git = "https://github.com/odense-rpa/odk-tools.git" },
+    { name = "ruff", specifier = ">=0.15.17" },
 ]
 
 [[package]]

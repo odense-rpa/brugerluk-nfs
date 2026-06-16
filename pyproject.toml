@@ -9,6 +9,7 @@ dependencies = [
     "boss-client",
     "nfs-client",
     "odk-tools",
+    "ruff>=0.15.17",
 ]
 
 [tool.uv.sources]
