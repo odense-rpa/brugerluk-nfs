@@ -17,7 +17,7 @@ from odk_tools.tracking import Tracker
 proces_navn = "Brugerluk NFS"
 
 
-async def populate_queue(workqueue: Workqueue, boss: boss_client.BossClient):
+def populate_queue(workqueue: Workqueue, boss: boss_client.BossClient):
     logger = logging.getLogger(__name__)
     systems = boss.hent_systemer()
     boss_items = [item for item in systems["systems"] if item["systemName"] == "NFS"]
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     # Queue management
     if "--queue" in sys.argv:
         workqueue.clear_workqueue(WorkItemStatus.NEW)
-        asyncio.run(populate_queue(workqueue, boss))
+        populate_queue(workqueue, boss)
         exit(0)
 
     # Process workqueue
