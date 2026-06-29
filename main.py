@@ -87,4 +87,4 @@ if __name__ == "__main__":
         exit(0)
 
     # Process workqueue
-    process_workqueue(workqueue, nfs, tracker)
+    process_workqueue(workqueue, boss, nfs, tracker)
