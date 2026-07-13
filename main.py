@@ -74,6 +74,7 @@ if __name__ == "__main__":
         base_url=robob_credential.data["nfs_url"],
         username=robob_credential.username,
         password=robob_credential.password,
+        headless=True
     )
 
     tracker = Tracker(
