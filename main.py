@@ -42,6 +42,11 @@ def process_workqueue(
                 nfs.slet_bruger(data["email"])
                 boss.marker_bruger_som_slettet(data["id"])
                 tracker.track_task(proces_navn)
+                report(
+                    "brugerluk_nfs",
+                    "Lukkede brugere",
+                    {"Brugernavn": data["initials"]},
+                )
             except ValueError as e:
                 report(
                     "brugerluk_nfs",
