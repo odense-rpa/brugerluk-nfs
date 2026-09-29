@@ -57,8 +57,8 @@ uv run python main.py           # Behandl arbejdskøen og luk NFS-brugerne
 | `boss-client` | Klient til BOSS HR-system – henter systemer og markerer brugere som slettet |
 | `nfs-client` | Klient til NFS-systemet via RoboB – sletter brugere |
 | `odk-tools` | Odense-værktøjer til fejlrapportering og task-tracking |
-| `ruff` | Python linter |
+| `ruff` | Python linter og formatter (kun udvikling) |
 
 ## GDPR og sikkerhed
 
-Processen behandler medarbejderdata fra BOSS: initialer, e-mailadresse og system-id. Oplysningerne bruges udelukkende til at identificere og slette brugere i NFS og overføres ikke til tredjeparter. Fejlrapporter med brugernavne logges via `odk-tools`.
+Processen behandler medarbejderdata fra BOSS: initialer, e-mailadresse og system-id. Oplysningerne bruges udelukkende til at identificere og slette brugere i NFS og overføres ikke til tredjeparter. Fejlrapporter med brugernavne logges via `odk-tools`. Derudover logges initialer og eventuelle fejlbeskeder fra NFS i Automation Servers audit-log.
