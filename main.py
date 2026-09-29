@@ -39,7 +39,7 @@ def process_workqueue(
             data = item.data  # Item data deserialized from json as dict
 
             try:
-                nfs.slet_bruger(data["email"])
+                nfs.brugere.slet_bruger(data["email"])
                 boss.marker_bruger_som_slettet(data["id"])
                 tracker.track_task(proces_navn)
                 report(
